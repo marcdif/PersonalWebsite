@@ -6,8 +6,8 @@ body {
 }
 
 .navbar {
-    background-color: navy;
-    width: 200px;
+    background-color: #001f3f;
+    width: 300px;
     height: 100vh;
     position: fixed;
     left: 0;
@@ -23,8 +23,8 @@ body {
     color: white;
     text-decoration: none;
     /* margin-bottom: 10px; */
-    padding: 5% 10% 5% 30%;
-    left: -20%;
+    padding: 13% 10% 7% 30%;
+    left: -15%;
     transition: background-color 0.3s, transform 0.3s;
     display: flex;
     justify-content: flex-start;
@@ -32,7 +32,7 @@ body {
     width: 80%;
     display: flex;
     justify-content: flex-start;
-    font-size: 24px;
+    font-size: 36px;
 }
 
 .navbar a::before {
@@ -49,7 +49,7 @@ body {
 
 .navbar a:hover::before {
     background-color: #001f3f;
-    transform: translateX(30px);
+    transform: translateX(58px);
 }
 
 .navbar .nav-item {
@@ -68,7 +68,7 @@ body {
 }
 
 .navbar .nav-item:hover a {
-    transform: translateX(30px);
+    transform: translateX(58px);
 }
 
 .navbar .nav-item::before {
@@ -78,16 +78,19 @@ body {
     top: 0;
     width: 200%;
     height: 100%;
-    background-color: navy;
+    background-color: #001f3f;
     transform-origin: top right;
     transform: skewX(-30deg) translateX(0);
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s, border 0.3s;
+    border: 8px solid #001A33;
+    /* box-sizing: border-box; */
     z-index: -1;
 }
 
 .navbar .nav-item:hover::before {
-    background-color: #001f3f;
-    transform: skewX(-30deg) translateX(28px);
+    background-color: #00468C;
+    transform: skewX(-30deg) translateX(58px);
+    border: 8px solid #ffffff;
     z-index: -1; /* Ensure the pseudo-element remains below the nav-item text */
 }
 
