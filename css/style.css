@@ -1,0 +1,205 @@
+html {
+    background-color: #000;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    height: 100%;
+    margin: 0;
+}
+
+.main {
+    height: 100%;
+    margin: 0;
+    background: url("../images/background.png") no-repeat center center fixed;
+    text-shadow: 5px 5px 5px black;
+    background-size: cover;
+    text-align: center;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+}
+
+.text-box {
+    display: inline-block;
+    padding: 2%;
+    border: 4px solid white;
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: all 0.15s ease;
+    color: inherit;
+    text-decoration: none;
+}
+
+.text-box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.text-box:hover {
+    color: #53a0df;
+    border: 4px solid #9ecaed;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+}
+
+.top-box {
+    margin-top: 11%;
+}
+
+.multi-box {
+    margin-top: 4%;
+}
+
+.multi-box .text-box {
+    margin: 5%;
+    width: 220px;
+}
+
+.multi-box .text-box:hover {
+    cursor: pointer;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 60px;
+    display: inherit;
+}
+
+.seperator-text {
+    font-weight: 300;
+    font-size: 60px;
+    display: inherit;
+}
+
+.subtitle {
+    font-weight: 300;
+    font-size: 50px;
+    display: inherit;
+}
+
+.buttons {
+    margin-top: 3%;
+}
+
+/* BUTTONS */
+.btn {
+    clear: both;
+    white-space: nowrap;
+    font-size: .9em;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.35);
+    margin: 2px;
+    overflow: hidden;
+}
+
+.btn:hover {
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
+}
+
+.btn:focus {
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.btn>span,
+.btn-icon>i {
+    float: left;
+    padding: 13px;
+    line-height: 1em;
+}
+
+.btn>span {
+    padding: 14px 18px 16px;
+    white-space: nowrap;
+    color: #FFFFFF;
+    background: #b8b8b8;
+}
+
+.btn-icon>i {
+    border-radius: 5px 0 0 5px;
+    position: relative;
+    width: 25px;
+    text-align: center;
+    font-size: 1.25em;
+    color: #FFFFFF;
+    background: #212121;
+}
+
+.btn-icon>i:after {
+    content: "";
+    border: 8px solid;
+    border-color: transparent transparent transparent #222222;
+    position: absolute;
+    top: 13px;
+    right: -15px;
+}
+
+.btn-icon:hover>i,
+.btn-icon:focus>i {
+    color: #FFFFFF;
+}
+
+.btn-icon>span {
+    border-radius: 0 5px 5px 0;
+}
+
+/* Twitter */
+.btn-twitter:hover>i,
+.btn-twitter:focus>i {
+    color: #55ACEE;
+}
+
+.btn-twitter>span {
+    background: #55ACEE;
+}
+
+/* Twitch */
+.btn-twitch:hover>i,
+.btn-twitch:focus>i {
+    color: #6441A4;
+}
+
+.btn-twitch>span {
+    background: #6441A4;
+}
+
+/* Youtube */
+.btn-youtube:hover>i,
+.btn-youtube:focus>i {
+    color: #BB0000;
+}
+
+.btn-youtube>span {
+    background: #BB0000;
+}
+
+/* Github */
+.btn-github:hover>i,
+.btn-github:focus>i {
+    color: #4183C4;
+}
+
+.btn-github>span {
+    background: #4183C4;
+}
+
+/* Email */
+.btn-email:hover>i,
+.btn-email:focus>i {
+    color: #cca20b;
+}
+
+.btn-email>span {
+    background: #cca20b;
+}
