@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Portfolio | Marc DiFilippo</title>
+    <meta name="description" content="Portfolio | Marc DiFilippo">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://marcdif.com" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="main">
+        <br>
+        <div class="content-box">
+            <h1><a href="/">&#x1f82c; Return Home</a></h1>
+            <h2 style="font-size: 32px">Portfolio</h2>
+            <ul style="text-align: left;">
+                <li>
+                    <p><a href="#minecraft-development">Minecraft Development</a></p>
+                    <ul>
+                        <li><p><a href="#dashboard">Central Network Management Service - Dashboard</a></p></li>
+                        <li><p><a href="#messagequeue">RabbitMQ Network Redesign - PalaceBungee and ParkManager</a></p></li>
+                    </ul>
+                </li>
+            </ul>
+            <h2 id="minecraft-development">Minecraft Development</h2>
+            <p>Throughout high school and college, I was a member of an online Minecraft community (MCMagic/Palace Network). After joining in 2013, I joined the volunteer management team and began writing custom Java plugins for the community's Minecraft server.</p>
+            <p>From when I joined the management team to when I departed in 2021, I contributed to over 50 different software projects for the server. These ranged from simple cosmetic effects to complex cross-server communication and load balancing. Below is an explanation of the most significant projects I led the development of. Where possible, the source code from these projects has been made publicly available on the <a href="https://github.com/PalaceInteractiveArchive" target="_blank">PalaceInteractiveArchive</a> GitHub page.</p>
+            <h3 id="dashboard">Central Network Management Service - Dashboard</h3>
+            <p>Dashboard was a standalone Java application and websocket server that acted as the center of the network for several years. Minecraft is not designed out of the box to scale to support hundreds of connected players. To account for this, various projects have stepped in to solve that problem with smart TCP proxies that connect multiple Minecraft servers together (see <a href="https://www.spigotmc.org/wiki/about-bungeecord/" target="_blank">BungeeCord</a> and <a href="https://papermc.io/software/waterfall" target="_blank">Waterfall</a>). These proxies allow players to maintain a long-running TCP connection with one central service (the proxy) while the user can switch between multiple downstream services (the Minecraft servers).</p>
+            <p>To improve the user experience further, plugins can be added to these proxies to allow players on different servers to chat with each other, send direct messages, etc. However, we ran into capacity and reliability issues by only running one BungeeCord proxy. We wanted to run multiple proxies, but doing so would split the userbase further. The proxies wouldn't communicate with each other, so players on different proxies couldn't chat together, message each other, etc.</p>
+            <p>Dashboard was my proposed solution to this problem. We would have multiple BungeeCord proxies, each responsible for connecting players to the same list of 15 or so Minecraft servers. However, the proxies would forward all chat and command packets from the player to Dashboard, which would manage the cross-server communication features the network relied on.</p>
+            <p>The initial implementation of Dashboard was very successful, allowing us to have as many proxies as necessary, and as many Minecraft servers as the team wanted. Dashboard's features were then expanded to include social systems (friends lists and party chats), enable queueing for events across different Minecraft servers, integrations with external tools the moderation teams used like Slack, and much more.</p>
+            <p>The full source code for the <a href="https://github.com/PalaceInteractiveArchive/Dashboard" target="_blank">Dashboard</a> project is available on GitHub.</p>
+            <h3 id="messagequeue">RabbitMQ Network Redesign - PalaceBungee and ParkManager</h3>
+            <p>While Dashboard was key in enabling the network to scale in terms of player capacity, feature growth, and network reliability, one issue was that it was a single-point-of-failure. Because Dashboard was so central to many operations on the network, when it was offline players couldn't connect to the network, chat messages couldn't be sent, and all of the other Dashboard-specific features were unavailable.</p>
+            <p>To address those issues, I led the design and development of an updated network structure in which the Minecraft servers, BungeeCord proxies, and external services all communicate with each other through RabbitMQ message queues. This removed the single-point-of-failure issue that Dashboard introduced and allowed all these services to operate without a central system.</p>
+            <p>This was challenging to implement since Dashboard didn't just process simple transactions like chat messages. There were complex stateful systems like the party system, the queueing system and cross-server player inventories. Previously, the state for these systems was just managed through ArrayLists in Dashboard, with long-term data persisted to MongoDB.</p>
+            <p>With the decentralized design, the state for systems like these was migrated to multiple different sources. Data that was globally relevant, like all the active parties on the network, was moved to a MongoDB collection. All '/party' commands were moved to the BungeeCord proxy plugin "PalaceBungee"; the proxies communicated with each other through RabbitMQ and stored state in MongoDB.</p>
+            <p>The queue system, which enabled players from anywhere on the network to "get in line" for an event on a specific server, was split between PalaceBungee and ParkManager. Similar to parties, the state was stored in MongoDB, and both ParkManager and PalaceBungee interacted with that state.</p>
+            <p>Cross-server inventory management, which allowed players to have the same inventory across multiple Minecraft servers, was fully migrated to the ParkManager plugin (which ran on those servers which shared inventories). The servers communicated directly with each other through RabbitMQ and used MongoDB for storing inventory data.</p>
+            <p>The full source code for the <a href="https://github.com/PalaceInteractiveArchive/PalaceBungee" target="_blank">PalaceBungee</a> and <a href="https://github.com/PalaceInteractiveArchive/ParkManager" target="_blank">ParkManager</a> projects are available on GitHub.</p>
+        </div>
+        <br>
+    </div>
+</body>
+
+<!-- Background credit: https://www.artstation.com/artwork/XBEbml -->
+
+</html>

@@ -12,7 +12,7 @@ body {
 }
 
 .main {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
     background: url("../images/background.png") no-repeat center center fixed;
     text-shadow: 5px 5px 5px black;
@@ -43,6 +43,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 12px;
+    pointer-events: none;
     box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -70,14 +71,65 @@ body {
     cursor: pointer;
 }
 
-.name {
-    font-weight: 700;
-    font-size: 60px;
-    display: inherit;
+.main .content-box {
+    max-width: calc(64rem + 8vw);
+    margin: 0 auto;
+    padding: 3rem;
+    background-color: #222426;
+    text-shadow: none;
 }
 
-.seperator-text {
-    font-weight: 300;
+.main .content-box h1 {
+    text-align: left;
+    font-size: 20px;
+    margin-top: 0;
+}
+
+.main .content-box h1 a {
+    color: inherit;
+    text-decoration: none;
+    box-shadow: inset 0 -2px 0 white;
+    transition: all ease-out .1s;
+}
+
+.main .content-box h1 a:hover {
+    color: aqua;
+    box-shadow: inset 0 -2px 0 aqua;
+}
+
+.main .content-box h2 {
+    text-align: center;
+}
+
+.main .content-box p {
+    text-align: left;
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+.main .content-box a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
+    box-shadow: inset 0 -2px 0 blue;
+    transition: all ease-out .1s;
+}
+
+.main .content-box a:hover {
+    box-shadow: inset 0 -2px 0 aqua;
+}
+
+.main .content-box ul p {
+    line-height: 1em;
+}
+
+.main .footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.name {
+    font-weight: 700;
     font-size: 60px;
     display: inherit;
 }
@@ -88,118 +140,21 @@ body {
     display: inherit;
 }
 
-.buttons {
-    margin-top: 3%;
+.contact {
+    font-weight: 100;
+    font-size: 24px;
+    display: inherit;
+    margin-top: 5px;
 }
 
-/* BUTTONS */
-.btn {
-    clear: both;
-    white-space: nowrap;
-    font-size: .9em;
-    display: inline-block;
-    border-radius: 5px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.35);
-    margin: 2px;
-    overflow: hidden;
+.contact a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
+    box-shadow: inset 0 -2px 0 blue;
+    transition: all ease-out .1s;
 }
 
-.btn:hover {
-    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
-}
-
-.btn:focus {
-    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.4);
-}
-
-.btn>span,
-.btn-icon>i {
-    float: left;
-    padding: 13px;
-    line-height: 1em;
-}
-
-.btn>span {
-    padding: 14px 18px 16px;
-    white-space: nowrap;
-    color: #FFFFFF;
-    background: #b8b8b8;
-}
-
-.btn-icon>i {
-    border-radius: 5px 0 0 5px;
-    position: relative;
-    width: 25px;
-    text-align: center;
-    font-size: 1.25em;
-    color: #FFFFFF;
-    background: #212121;
-}
-
-.btn-icon>i:after {
-    content: "";
-    border: 8px solid;
-    border-color: transparent transparent transparent #222222;
-    position: absolute;
-    top: 13px;
-    right: -15px;
-}
-
-.btn-icon:hover>i,
-.btn-icon:focus>i {
-    color: #FFFFFF;
-}
-
-.btn-icon>span {
-    border-radius: 0 5px 5px 0;
-}
-
-/* Twitter */
-.btn-twitter:hover>i,
-.btn-twitter:focus>i {
-    color: #55ACEE;
-}
-
-.btn-twitter>span {
-    background: #55ACEE;
-}
-
-/* Twitch */
-.btn-twitch:hover>i,
-.btn-twitch:focus>i {
-    color: #6441A4;
-}
-
-.btn-twitch>span {
-    background: #6441A4;
-}
-
-/* Youtube */
-.btn-youtube:hover>i,
-.btn-youtube:focus>i {
-    color: #BB0000;
-}
-
-.btn-youtube>span {
-    background: #BB0000;
-}
-
-/* Github */
-.btn-github:hover>i,
-.btn-github:focus>i {
-    color: #4183C4;
-}
-
-.btn-github>span {
-    background: #4183C4;
-}
-
-/* Email */
-.btn-email:hover>i,
-.btn-email:focus>i {
-    color: #cca20b;
-}
-
-.btn-email>span {
-    background: #cca20b;
+.contact a:hover {
+    box-shadow: inset 0 -2px 0 aqua;
 }
