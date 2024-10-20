@@ -27,6 +27,14 @@
             <h2 style="font-size: 32px">Portfolio</h2>
             <ul style="text-align: left;">
                 <li>
+                    <p><a href="#msc">DevSecOps Engineering at MSC Industrial Supply, Co.</a></p>
+                    <ul>
+                        <li><p><a href="#ecomm">eCommerce Platform Migration and Rearchitecting</a></p></li>
+                        <li><p><a href="#jfrog">Migration from Sonatype Nexus to JFrog Artifactory and Xray</a></p></li>
+                        <li><p><a href="#elastic">Simplified Management of Elasticsearch Cluster</a></p></li>
+                    </ul>
+                </li>
+                <li>
                     <p><a href="#minecraft-development">Minecraft Development</a></p>
                     <ul>
                         <li><p><a href="#titan-api">React Admin Panel and TypeScript API - Titan and InternalAPI</a></p></li>
@@ -36,6 +44,42 @@
                     </ul>
                 </li>
             </ul>
+        </div>
+        <div class="content-box">
+            <h2 id="msc">DevSecOps Engineering at MSC Industrial Supply, Co.</h2>
+            <p>I started working at MSC Industrial Supply, Co. in June 2021 and am currently working there as a DevSecOps Engineer. I design and manage a significant portion of the company's Google Cloud Platform infrastructure.</p>
+            <h3 id="ecomm" class="collapsible" onclick="toggleContent('ecomm-content')">eCommerce Platform Migration and Rearchitecting <span style="color:lightgray">(Click to Expand)</span></h3>
+            <div class="content" id="ecomm-content">
+                <p>MSC's eCommerce platform initially launched on IBM's WebSphere Commerce product hosted on rented hardware in an IBM datacenter. In 2020, a project started to migrate the eCommerce platform from this "on-prem" setup to a software platform developed in-house and hosted on Google Cloud Platform (GCP).</p>
+                <p>My role in this migration and rearchitecting as a DevSecOps Engineer is to design and manage the infrastructure for the new GCP-hosted platform. This includes development, testing, and production environments, as well as CI/CD pipelines on Jenkins servers to perform SonarQube static code analysis and active unit testing to ensure code quality and functionality. Additionally, JFrog Artifactory and Xray were recently introduced to the CI/CD process to ensure the security of the platform's software supply chain.</p>
+                <p>Over the course of the project, I have created and currently manage traditional virtual machines (VMs), serverless applications on Cloud Run, complex NGINX and GCP-native load balancing configurations, Cloud SQL PostgreSQL databases, and Redis caches. This includes all the IAM permissions associated with these resources - ensuring the principle of least privilege access is followed.</p>
+                <p>All resources are managed with Terraform to ensure consistency in configuration across environments and to track changes through code review in Bitbucket. Terraform modules and remote state references are heavily used to reduce the length of individual configuration files.     This minimizes the complexity of most changes, such as adding/removing VMs.</p>
+                <p>Condensing the Terraform scripts with modules still allows a great deal of customization - what we refer to as many "degrees of control" when it comes to changing the shape of an environment. We can scale up the number of VMs in a specific region or zone, while other regions/zones are not impacted. Or change the amount of VMs used to run a specific type of application, while others are not impacted. All this is done through the same variables.tf file to reduce the number of places Terraform is run from (while keeping environments like development and production separate).</p>
+            </div>
+            <h3 id="jfrog" class="collapsible" onclick="toggleContent('jfrog-content')">Migration from Sonatype Nexus to JFrog Artifactory and Xray <span style="color:lightgray">(Click to Expand)</span></h3>
+            <div class="content" id="jfrog-content">
+                <p>This was a complex change to introduce to our CI/CD pipeline for several reasons.</p>
+                <p>To start, it required changes to many Java pom.xml files as Nexus is less strict about enforcing Maven standards compared to JFrog, which allowed our developers to adopt not-great habits (like "latest" versioning instead of explicit versioning).</p>
+                <p>Additionally, many Jenkins pipelines needed to be updated to push artifacts to both JFrog and Nexus while developers finished onboarding. Directly switching to JFrog would've blocked developers who haven't been onboarded from completing their sprint work and potentially put deadlines at risk.</p>
+                <p>Lastly, we needed to get 100+ MSC associates and consultants onboarded, which involved logging into JFrog and updating their workstation to push to/pull from JFrog Artifactory instead of Sonatype Nexus. This was the most time-consuming part of the project as it can be difficult to onboard such a large group of developers to a new system in a timely manner - due to competing priorities, vacation/sick time, etc.</p>
+            </div>
+            <h3 id="elastic" class="collapsible" onclick="toggleContent('elastic-content')">Simplified Management of Elasticsearch Cluster <span style="color:lightgray">(Click to Expand)</span></h3>
+            <div class="content" id="elastic-content">
+                <p>In 2023, MSC started development of an in-house search engine named "Product Discovery". This search engine leverages Elasticsearch to store relevant information from our product catalog to improve search results compared to the previous third-party search engine.</p>
+                <p>While our initial approach to running an Elasticsearch cluster in GCP was to host it in Google Kubernetes Engine (GKE), organizational, compliance, and security concerns led us to adopt a traditional VM-based model, with plans to move to GKE in the future.</p>
+                <p>The cluster setup was standard - 3 master nodes, 3 data nodes, and 1 server running Kibana for cluster monitoring and management. A GCP HTTPS load balancer was needed to distribute requests between the data nodes. Lastly, the configuration files on all servers needed to be automatically generated to ensure the Elastic application (running on the nodes as Docker containers) was configured properly.</p>
+                <p>One additional complication to our setup was the requirement that these VMs could be rebuilt on a monthly basis. We do this due to security requirements to reset all our GCP VMs to a standardized Debian OS image. This image is recreated monthly with the latest OS patches and security fixes. Forcing all VMs to be rebuilt with the latest image brings additional security benefits, such as potentially eliminating malware that might be present on VM boot disks.</p>
+                <p>Terraform scripts are used extensively to manage these VMs. Through setting simple variables, such as the number of master and data nodes the cluster needs, the Terraform scripts handle the following:
+                <ul>
+                    <li><p>Create all necessary VMs using a standard naming scheme and predefined machine type.</p></li>
+                    <li><p>Apply a startup script to all VMs that automatically creates configuration files for the Elastic application.</p></li>
+                    <li><p>Dynamically fill in the hostnames of other VMs in the cluster in those configuration files. This is necessary to ensure the master nodes can communicate with each other, and that the data nodes can communicate with the master nodes.</p></li>
+                    <li><p>Create all necessary load balancing resources to distribute requests to data nodes and Kibana.</p></li>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <div class="content-box">
             <h2 id="minecraft-development">Minecraft Development</h2>
             <p>Throughout high school and college, I was a member of an online Minecraft community (MCMagic/Palace Network). After joining in 2013, I joined the volunteer management team and began writing custom Java plugins for the community's Minecraft server.</p>
             <p>From when I joined the management team to when I departed in 2021, I contributed to over 50 different software projects for the server. These ranged from simple cosmetic effects to complex cross-server communication and load balancing. Below is an explanation of the most significant projects I led the development of. Where possible, the source code from these projects has been made publicly available on the <a href="https://github.com/PalaceInteractiveArchive" target="_blank">PalaceInteractiveArchive</a> GitHub page.</p>
