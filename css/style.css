@@ -14,7 +14,8 @@ body {
 .main {
     min-height: 100%;
     margin: 0;
-    background: url("../images/background.png") no-repeat center center fixed;
+    background-color: rebeccapurple;
+    /* background: url("../images/background.png") no-repeat center center fixed; */
     text-shadow: 5px 5px 5px black;
     background-size: cover;
     text-align: center;
