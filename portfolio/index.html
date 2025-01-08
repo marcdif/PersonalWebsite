@@ -48,11 +48,32 @@
         <div class="content-box">
             <h2 id="msc">DevSecOps Engineering at MSC Industrial Supply, Co.</h2>
             <p>I started working at MSC Industrial Supply, Co. in June 2021 and am currently working there as a DevSecOps Engineer. I design and manage a significant portion of the company's Google Cloud Platform infrastructure.</p>
+            <p>Here is a (probably) complete list of projects I've participated in or led (marked with **) at MSC. Some projects have detailed explanations below.</p>
+            <ul>
+                <li>** eComm initial GCP infrastructure build out (Jun21-Jun22)</li>
+                <li>eComm initial GCP CI/CD pipeline design and implementation with Jenkins/Nexus/Sonar (Jun21-Jun22)</li>
+                <li>** eComm Cloud SQL Postgres design and creation (Oct21-Dec21)</li>
+                <li>** eComm MemoryStore for Redis design and creation (Nov21-Dec21)</li>
+                <li>** eComm CommerceTools implementation and integration with GCP Pub/Sub (22)</li>
+                <li>eComm SAP CDC/Gigya implementation (Jan22-Jun22)</li>
+                <li>eComm transition from UMIG VMs to RMIG VMs (22-May23)</li>
+                <li>** eComm move application load balancing from F5s to NGINX (May23-Jul23)</li>
+                <li>** Product Discovery Elasticsearch VM and cluster build out (Jul23-Nov23)</li>
+                <li>eComm "New UI" infrastructure build out and support (Feb24-Jul24)</li>
+                <li>** eComm transition from RMIGs to Cloud Run (Mar24-Dec24)</li>
+                <li>** Migrate all MSC developers from Sonatype Nexus to JFrog (Jun24-Nov24)</li>
+                <li>** Shop Floor/MachinIQ initial GCP infrastructure build out (Aug24-Oct24)</li>
+                <li>** eComm transition from on-prem ingress to GCP Layer 7 ingress (Sep24-present)</li>
+                <li>** Shop Floor/MachinIQ running MATLAB in GCP (Oct24-present)</li>
+                <li>** Product Discovery MongoDB in Kubernetes (Nov24-Jan25)</li>
+                <li>PEM initial GCP infrastructure build out (Dec24-present)</li>
+                <li>** Product Discovery move Elasticsearch from UMIGs to Kubernetes (Jan25-present)</li></li>
+            </ul>
             <h3 id="ecomm" class="collapsible" onclick="toggleContent('ecomm-content')">eCommerce Platform Migration and Rearchitecting <span style="color:lightgray">(Click to Expand)</span></h3>
             <div class="content" id="ecomm-content">
                 <p>MSC's eCommerce platform initially launched on IBM's WebSphere Commerce product hosted on rented hardware in an IBM datacenter. In 2020, a project started to migrate the eCommerce platform from this "on-prem" setup to a software platform developed in-house and hosted on Google Cloud Platform (GCP).</p>
-                <p>My role in this migration and rearchitecting as a DevSecOps Engineer is to design and manage the infrastructure for the new GCP-hosted platform. This includes development, testing, and production environments, as well as CI/CD pipelines on Jenkins servers to perform SonarQube static code analysis and active unit testing to ensure code quality and functionality. Additionally, JFrog Artifactory and Xray were recently introduced to the CI/CD process to ensure the security of the platform's software supply chain.</p>
-                <p>Over the course of the project, I have created and currently manage traditional virtual machines (VMs), serverless applications on Cloud Run, complex NGINX and GCP-native load balancing configurations, Cloud SQL PostgreSQL databases, and Redis caches. This includes all the IAM permissions associated with these resources - ensuring the principle of least privilege access is followed.</p>
+                <p>My role in this migration and rearchitecting as a DevSecOps Engineer is to design and manage the infrastructure for the new GCP-hosted platform. This includes development, testing, and production environments, as well as CI/CD pipelines on Jenkins servers to perform SonarQube static code analysis and active unit testing to ensure code quality and functionality. Additionally, JFrog Artifactory and Xray were later added to the CI/CD process to ensure the security of the platform's software supply chain.</p>
+                <p>Over the course of the project, I have created and currently manage traditional virtual machines (VMs), serverless applications on Cloud Run, Kubernetes clusters, complex NGINX and GCP-native load balancing configurations, Cloud SQL PostgreSQL databases, and Redis caches. This includes all the IAM permissions associated with these resources - ensuring the principle of least privilege access is followed.</p>
                 <p>All resources are managed with Terraform to ensure consistency in configuration across environments and to track changes through code review in Bitbucket. Terraform modules and remote state references are heavily used to reduce the length of individual configuration files.     This minimizes the complexity of most changes, such as adding/removing VMs.</p>
                 <p>Condensing the Terraform scripts with modules still allows a great deal of customization - what we refer to as many "degrees of control" when it comes to changing the shape of an environment. We can scale up the number of VMs in a specific region or zone, while other regions/zones are not impacted. Or change the amount of VMs used to run a specific type of application, while others are not impacted. All this is done through the same variables.tf file to reduce the number of places Terraform is run from (while keeping environments like development and production separate).</p>
             </div>
@@ -62,6 +83,7 @@
                 <p>To start, it required changes to many Java pom.xml files as Nexus is less strict about enforcing Maven standards compared to JFrog, which allowed our developers to adopt not-great habits (like "latest" versioning instead of explicit versioning).</p>
                 <p>Additionally, many Jenkins pipelines needed to be updated to push artifacts to both JFrog and Nexus while developers finished onboarding. Directly switching to JFrog would've blocked developers who haven't been onboarded from completing their sprint work and potentially put deadlines at risk.</p>
                 <p>Lastly, we needed to get 100+ MSC associates and consultants onboarded, which involved logging into JFrog and updating their workstation to push to/pull from JFrog Artifactory instead of Sonatype Nexus. This was the most time-consuming part of the project as it can be difficult to onboard such a large group of developers to a new system in a timely manner - due to competing priorities, vacation/sick time, etc.</p>
+                <p>After the migration was complete, we were able to decommission the Nexus server and take advantage of JFrog Xray to check the security of dependencies in our projects.</p>
             </div>
             <h3 id="elastic" class="collapsible" onclick="toggleContent('elastic-content')">Simplified Management of Elasticsearch Cluster <span style="color:lightgray">(Click to Expand)</span></h3>
             <div class="content" id="elastic-content">
