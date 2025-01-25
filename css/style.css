@@ -75,7 +75,7 @@ body {
 .main .content-box {
     max-width: calc(64rem + 8vw);
     margin: 0 auto;
-    padding: 3rem;
+    padding: 3rem 3rem 1rem 3rem;
     background-color: #222426;
     text-shadow: none;
 }
