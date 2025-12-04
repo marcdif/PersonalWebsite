@@ -1,0 +1,216 @@
+<html>
+
+<head>
+  <title>Travel Passport</title>
+  <style>
+    /* init */
+    :root {
+      --bg: #021526;
+      --clr-1: #00c2ff;
+      --clr-2: #33ff8c;
+      --clr-3: #ffc640;
+      --clr-4: #e54cff;
+
+      --blur: 1rem;
+      --fs: clamp(3rem, 2.2rem + 2vw, 5rem);
+      --ls: clamp(-1.75px, -0.25vw, -3.5px);
+    }
+
+    *,
+    *::before,
+    *::after {
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    /* native types */
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: Manrope, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+      text-decoration: none;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #fff;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* custom classes */
+    .main-heading {
+      text-align: center;
+      font-size: var(--fs);
+      font-weight: 800;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+      margin: 0;
+      line-height: 1.2;
+
+      /* animate entrance */
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: dropAndFadeIn 1s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    .world-map {
+      margin: 5% 0;
+
+      /* animate entrance */
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: dropAndFadeIn 1s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    .world-map img {
+      margin: 0 10%;
+      width: 80%;
+      border: 2px solid white;
+      border-radius: 30px;
+    }
+
+    .world-map .overlays {
+      position: absolute;
+      width: 3.333%;
+      border: none;
+      color: white;
+      margin: 0;
+    }
+
+    .introduction p {
+      font-size: clamp(2rem,.36vw + 1.83rem,2.4rem);
+      font-weight: 450;
+      margin-top: 20px;
+      max-width: 640px;
+      letter-spacing: -.008em;
+      color: #fff;
+    }
+
+    @keyframes dropAndFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* divs */
+    .top-spacer {
+      min-height: 100px;
+      max-height: 100px;
+      height: 100px;
+    }
+
+    .return-home {
+      border: 2px solid white;
+      border-radius: 10px;
+      height: 50px;
+      width: 150px;
+      text-align: center;
+      line-height: 44px;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+      margin: 25px;
+
+      /* animate entrance */
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: dropAndFadeIn 1s ease-out forwards;
+      animation-delay: 1s;
+    }
+  </style>
+  <!-- aurora css -->
+  <link rel="stylesheet" href="./assets/aurora.css">
+</head>
+
+<body>
+  <div class="top-spacer">
+    <a href="https://marcdif.com">
+      <div class="return-home">
+        Return Home
+      </div>
+    </a>
+  </div>
+  <h1 class="main-heading">Travel Passport
+    <div class="aurora">
+      <div class="aurora__item"></div>
+      <div class="aurora__item"></div>
+      <div class="aurora__item"></div>
+      <div class="aurora__item"></div>
+    </div>
+  </h1>
+  <div class="world-map" id="world-map">
+    <img id="map-img" src="./assets/world_map.svg" />
+  </div>
+  <div class="introduction">
+    <p>This page catalogs my travels!</p>
+  </div>
+  <div class="attributions">
+    <p>Attributions</p>
+    <ul>
+      <li><a href="https://www.vecteezy.com/free-vector/world-map">World Map Vectors by Vecteezy</a></li>
+    </ul>
+  </div>
+</body>
+<footer>
+  <script>
+    function loadMapMarkers() {
+      // Clear existing markers
+      const elements = document.querySelectorAll(`.overlays`);
+      elements.forEach(element => {
+        element.remove();
+      });
+
+      const image = document.getElementById('map-img');
+      const parentDiv = document.getElementById('world-map');
+
+      const fullWidth = 908;
+      const currentWidth = image.width;
+      const scale = currentWidth / fullWidth;
+
+      margin = 20;
+
+      const mapCoordinates = [
+        [200, 245], // US
+        [454, 242], // Italy
+        [424, 214], // UK
+        [393, 173], // Iceland
+        [188, 185], // Canada
+        [248, 278], // Bahamas
+      ]
+
+      for (let i = 0; i < mapCoordinates.length; i++) {
+        const coord = mapCoordinates[i];
+
+        l = image.offsetLeft + ((coord[0] - 19) * scale);
+        t = image.offsetTop + ((coord[1] - 38) * scale);
+        w = image.width;
+        h = image.height;
+
+        const newImage = document.createElement("img");
+        newImage.setAttribute('src', './assets/map-icon.svg');
+        newImage.setAttribute('class', 'overlays');
+        newImage.style.left = l + "px";
+        newImage.style.top = t + "px";
+        parentDiv.appendChild(newImage);
+      }
+    }
+    loadMapMarkers()
+    window.onresize = loadMapMarkers;
+  </script>
+</footer>
+
+</html>
